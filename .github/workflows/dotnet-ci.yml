@@ -1,4 +1,4 @@
-name: .NET CI/CD Pipeline
+name: .NET CI
 
 on:
   push:
@@ -13,19 +13,19 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v3
+    - name: Checkout repository
+      uses: actions/checkout@v3
 
-      - name: Setup .NET SDK
-        uses: actions/setup-dotnet@v3
-        with:
-          dotnet-version: '8.0.x'  # Update to match your project
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 8.0.x  # ✅ Use .NET 8.0 instead of 9.0
 
-      - name: Restore Dependencies
-        run: dotnet restore
+    - name: Restore dependencies
+      run: dotnet restore
 
-      - name: Build Solution
-        run: dotnet build --no-restore --configuration Release
+    - name: Build
+      run: dotnet build --no-restore
 
-      - name: Run Tests
-        run: dotnet test --no-build --verbosity normal
+    - name: Test
+      run: dotnet test --no-build --verbosity normal
